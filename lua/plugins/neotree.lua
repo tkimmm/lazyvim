@@ -1,4 +1,5 @@
 return {
+
   "nvim-neo-tree/neo-tree.nvim",
   config = function()
     require("neo-tree").setup({
@@ -32,6 +33,9 @@ return {
           never_show_by_pattern = { -- uses glob style patterns
             --".null-ls_*",
           },
+        },
+        follow_current_file = {
+          enabled = true,
         },
       },
     })
