@@ -56,4 +56,5 @@ vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[F]ind current 
 vim.keymap.set("n", "<leader>fe", builtin.diagnostics, { desc = "[F]ind [E]rrors" })
 vim.keymap.set("n", "<leader>fh", builtin.git_files, { desc = "[F]ind [G]it files" })
 
-vim.keymap.set("n", "_", ":Neotree toggle<CR>", { silent = true })
+-- vim.keymap.set("n", "_", ":Neotree toggle<CR>", { silent = true })
+vim.keymap.set("n", "_", ":NvimTreeFindFileToggle<CR>", { silent = true })
