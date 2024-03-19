@@ -2,11 +2,11 @@
 -- stylua: ignore
 if true then
   return {
-    { "nvim-dev/dashboard-nvim", enabled = false },
-    { "RRethy/vim-illuminate",   enabled = false },
-    { "folke/flash.nvim",   enabled = false },
-    { "echasnovski/mini.surround", enabled = false },
-    { "echasnovski/mini.ai", enabled = false },
+    { "nvim-dev/dashboard-nvim",     enabled = false },
+    { "RRethy/vim-illuminate",       enabled = false },
+    { "folke/flash.nvim",            enabled = false },
+    { "echasnovski/mini.surround",   enabled = false },
+    { "echasnovski/mini.ai",         enabled = false },
     { "nvim-neotest/nvim-nio" },
     { "nvim-neo-tree/neo-tree.nvim", enabled = false },
   }
@@ -19,17 +19,6 @@ end
 -- * disable/enabled LazyVim plugins
 -- * override the configuration of LazyVim plugins
 return {
-  -- add gruvbox
-  { "ellisonleao/gruvbox.nvim" },
-
-  -- Configure LazyVim to load gruvbox
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "gruvbox",
-    },
-  },
-
   -- change trouble config
   {
     "folke/trouble.nvim",

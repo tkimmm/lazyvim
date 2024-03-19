@@ -37,7 +37,9 @@ vim.keymap.set("n", "<leader>Y", '"+Y')
 -- ollama commands
 vim.g.generate_auto_split = 1
 vim.g.generate_right_split = 1
+
 vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
+vim.keymap.set({ "n", "v" }, "<leader>m", ":DBUIToggle<CR>")
 
 local builtin = require("telescope.builtin")
 

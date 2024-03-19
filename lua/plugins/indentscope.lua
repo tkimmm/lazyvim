@@ -23,6 +23,8 @@ return {
           "toggleterm",
           "nvimtree",
           "lazyterm",
+          "dbui",
+          "gen.nvim",
         },
         callback = function()
           vim.b.miniindentscope_disable = true
