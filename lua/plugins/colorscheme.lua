@@ -1,11 +1,11 @@
 return {
-  { "ellisonleao/gruvbox.nvim" },
+  -- { "ellisonleao/gruvbox.nvim" },
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "gruvbox",
+      -- colorscheme = "gruvbox",
       -- colorscheme = "nightfox",
-      -- colorscheme = "catppuccin",
+      colorscheme = "catppuccin",
     },
   },
 
@@ -14,10 +14,8 @@ return {
     name = "catppuccin",
     priority = 2000,
     config = function()
-      -- vim.cmd.colorscheme "catppuccin"
       require("catppuccin").setup({
         -- flavour = "mocha", -- latte, frappe, macchiato, mocha
-        flavour = "frappe", -- latte, frappe, macchiato, mocha
         transparent_background = false,
         background = {
           light = "latte",
@@ -54,29 +52,29 @@ return {
           gitsigns = true,
           nvimtree = true,
           telescope = true,
-          notify = false,
-          mini = false,
+          notify = true,
+          mini = true,
           neotree = false,
         },
       })
     end,
   },
 
-  {
-    "EdenEast/nightfox.nvim",
-    priority = 1000,
-    config = function()
-      require("nightfox").setup({
-        options = {
-          -- Compiled file's destination location
-          compile_path = vim.fn.stdpath("cache") .. "/nightfox",
-          compile_file_suffix = "_compiled", -- Compiled file suffix
-          transparent = false, -- Disable setting background
-          terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
-          dim_inactive = false, -- Non focused panes set to alternative background
-          module_default = true,
-        },
-      })
-    end,
-  },
+  -- {
+  --   "EdenEast/nightfox.nvim",
+  --   priority = 1000,
+  --   config = function()
+  --     require("nightfox").setup({
+  --       options = {
+  --         -- Compiled file's destination location
+  --         compile_path = vim.fn.stdpath("cache") .. "/nightfox",
+  --         compile_file_suffix = "_compiled", -- Compiled file suffix
+  --         transparent = false, -- Disable setting background
+  --         terminal_colors = true, -- Set terminal colors (vim.g.terminal_color_*) used in `:terminal`
+  --         dim_inactive = false, -- Non focused panes set to alternative background
+  --         module_default = true,
+  --       },
+  --     })
+  --   end,
+  -- },
 }
