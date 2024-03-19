@@ -40,9 +40,11 @@ vim.g.generate_right_split = 1
 vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
 
 local builtin = require("telescope.builtin")
+
 vim.keymap.set("n", "<C-p>", function()
   builtin.find_files({ hidden = "true" })
 end, { desc = "[F]ind [H]idden files" })
+
 vim.keymap.set("n", "<C-f>", function()
   builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
     previewer = true,
@@ -56,5 +58,4 @@ vim.keymap.set("n", "<leader>fw", builtin.grep_string, { desc = "[F]ind current 
 vim.keymap.set("n", "<leader>fe", builtin.diagnostics, { desc = "[F]ind [E]rrors" })
 vim.keymap.set("n", "<leader>fh", builtin.git_files, { desc = "[F]ind [G]it files" })
 
--- vim.keymap.set("n", "_", ":Neotree toggle<CR>", { silent = true })
 vim.keymap.set("n", "_", ":NvimTreeFindFileToggle<CR>", { silent = true })
