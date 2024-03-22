@@ -7,6 +7,9 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
+  keys = {
+    { "_", "<cmd>NvimTreeFindFileToggle<CR>", desc = "Tree toggle", { silent = true } },
+  },
   config = function()
     local tree_api = require("nvim-tree")
     local tree_view = require("nvim-tree.view")

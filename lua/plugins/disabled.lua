@@ -9,6 +9,32 @@ if true then
     { "echasnovski/mini.ai",         enabled = false },
     { "nvim-neo-tree/neo-tree.nvim", enabled = false },
     { "nvim-neotest/nvim-nio" },
+    { "nvim-treesitter/nvim-treesitter",
+      opts = {
+        ensure_installed = {
+        "bash",
+        "hurl",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "markdown_inline",
+        "python",
+        "html",
+        "json",
+        "http",
+        "graphql",
+        "xml",
+        "query",
+        "regex",
+        "tsx",
+        "typescript",
+        "vim",
+        "yaml",
+        },
+      },
+    },
   }
 end
 
@@ -135,27 +161,6 @@ return {
   { import = "lazyvim.plugins.extras.lang.typescript" },
 
   -- add more treesitter parsers
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = {
-      ensure_installed = {
-        "bash",
-        "html",
-        "javascript",
-        "json",
-        "lua",
-        "markdown",
-        "markdown_inline",
-        "python",
-        "query",
-        "regex",
-        "tsx",
-        "typescript",
-        "vim",
-        "yaml",
-      },
-    },
-  },
 
   -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
   -- would overwrite `ensure_installed` with the new value.

@@ -1,7 +1,3 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- A any additional keymaps here
-
 vim.cmd("set cmdheight=6")
 vim.keymap.set("i", "jk", "<Esc>", {})
 vim.keymap.set("n", "<C-q>", ":bd<CR>", {})
@@ -33,9 +29,6 @@ vim.g.generate_auto_split = 1
 vim.g.generate_right_split = 1
 
 -- Toggle addons
-vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
-vim.keymap.set({ "n", "v" }, "<leader>m", ":DBUIToggle<CR>")
-vim.keymap.set("n", "_", ":NvimTreeFindFileToggle<CR>", { silent = true })
 vim.keymap.set("n", "<leader><space>", ":Format<CR>", { silent = true })
 
 local builtin = require("telescope.builtin")
@@ -91,3 +84,7 @@ end, { desc = "[f] Fuzzily search in current buffer" })
 -- })
 -- end,
 -- })
+
+-- vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
+-- vim.keymap.set({ "n", "v" }, "<leader>m", ":DBUIToggle<CR>")
+-- vim.keymap.set("n", "_", ":NvimTreeFindFileToggle<CR>", { silent = true })
