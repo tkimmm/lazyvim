@@ -29,7 +29,8 @@ vim.g.generate_auto_split = 1
 vim.g.generate_right_split = 1
 
 -- Toggle addons
-vim.keymap.set("n", "<leader><space>", ":Format<CR>", { silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
+-- vim.keymap.set("n", "<leader><space>", ":Format<CR>", { silent = true })
 
 local builtin = require("telescope.builtin")
 
@@ -85,6 +86,5 @@ end, { desc = "[f] Fuzzily search in current buffer" })
 -- end,
 -- })
 
--- vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
 -- vim.keymap.set({ "n", "v" }, "<leader>m", ":DBUIToggle<CR>")
 -- vim.keymap.set("n", "_", ":NvimTreeFindFileToggle<CR>", { silent = true })
