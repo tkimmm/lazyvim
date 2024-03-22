@@ -2,7 +2,7 @@
 -- stylua: ignore
 if true then
   return {
-    { "nvim-dev/dashboard-nvim",     enabled = false },
+    -- { "nvim-dev/dashboard-nvim",     enabled = false },
     { "RRethy/vim-illuminate",       enabled = false },
     { "folke/flash.nvim",            enabled = false },
     { "echasnovski/mini.surround",   enabled = false },
@@ -17,6 +17,7 @@ if true then
         "html",
         "javascript",
         "json",
+        "jsonc",
         "lua",
         "markdown",
         "markdown_inline",
@@ -31,6 +32,7 @@ if true then
         "tsx",
         "typescript",
         "vim",
+          "vimdoc",
         "yaml",
         },
       },
