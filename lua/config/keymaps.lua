@@ -1,6 +1,6 @@
 vim.cmd("set cmdheight=6")
 vim.keymap.set("i", "jk", "<Esc>", {})
-vim.keymap.set("n", "<C-q>", ":bd<CR>", {})
+vim.keymap.set("n", "<C-q>", ":bd<CR>", { silent = true })
 
 -- Remove highlight line
 vim.o.cursorline = false

@@ -56,7 +56,7 @@ return {
     },
   },
   keys = {
-    { "<leader>c", toggleDebugging, desc = "Debug - Backend Debug" },
+    { "<leader>c", toggleDebugging,   desc = "Debug - Backend Debug" },
     { "<leader>C", toggleFEDebugging, desc = "Debug - Frontend Debug" },
     {
       "<leader>v",
@@ -165,17 +165,17 @@ return {
       layouts = {
         {
           elements = {
-            {
-              id = "repl",
-              size = 0.35,
-            },
+            -- {
+            --   id = "repl",
+            --   size = 0.35,
+            -- },
             {
               id = "stacks",
               size = 0.15,
             },
             {
               id = "scopes",
-              size = 0.50,
+              size = 0.85,
             },
           },
           position = "right",
@@ -183,18 +183,18 @@ return {
         },
         {
           elements = {
-            {
-              id = "watches",
-              size = 0.5,
-            },
+            -- {
+            -- id = "watches",
+            -- size = 0.5,
+            -- },
             {
               id = "breakpoints",
               size = 0.5,
             },
-            -- {
-            --   id = "console",
-            --   size = 0.5
-            -- },
+            {
+              id = "console",
+              size = 0.5
+            },
           },
           position = "bottom",
           size = 10,
