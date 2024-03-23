@@ -25,6 +25,7 @@ return {
           "lazyterm",
           "dbui",
           "gen.nvim",
+          "DAP Scopes",
         },
         callback = function()
           vim.b.miniindentscope_disable = true

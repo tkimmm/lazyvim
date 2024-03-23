@@ -165,10 +165,6 @@ return {
       layouts = {
         {
           elements = {
-            -- {
-            --   id = "repl",
-            --   size = 0.35,
-            -- },
             {
               id = "stacks",
               size = 0.15,
@@ -192,9 +188,13 @@ return {
               size = 0.5,
             },
             {
-              id = "console",
+              id = "repl",
               size = 0.5
             },
+            -- {
+            -- id = "repl",
+            -- size = 0.35,
+            -- },
           },
           position = "bottom",
           size = 10,
