@@ -12,16 +12,15 @@ return {
       -- Show notification on run
       show_notification = false,
       -- Show response in popup or split
-      -- mode = "popup",
-      -- Default formatter
+      mode = "popup",
       -- popup_position = '50%',
       -- popup_size = {
-      --   width = 80,
-      --   height = 40,
+      -- width = 80,
+      -- height = 40,
       -- },
       -- Split settings
-      split_position = "left",
-      split_size = "30%",
+      -- split_position = "left",
+      -- split_size = "30%",
       formatters = {
         json = { "jq" }, -- Make sure you have install jq in your system, e.g: brew install jq
         html = {
