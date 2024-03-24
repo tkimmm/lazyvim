@@ -21,7 +21,7 @@ return {
       -- },
       -- Split settings
       split_position = "left",
-      split_size = "50%",
+      split_size = "30%",
       formatters = {
         json = { "jq" }, -- Make sure you have install jq in your system, e.g: brew install jq
         html = {
