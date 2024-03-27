@@ -35,7 +35,7 @@ vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
 local builtin = require("telescope.builtin")
 
 vim.keymap.set("n", "<C-p>", function()
-  builtin.find_files({ hidden = "true" })
+  builtin.find_files({ hidden = "true", no_ignore = "true" })
 end, { desc = "[F]ind [H]idden files" })
 
 vim.keymap.set("n", "<C-f>", function()
