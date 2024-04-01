@@ -23,7 +23,6 @@ return {
       callback = function()
         if tree_view.is_visible() then
           tree_view.close()
-          tree_api.open()
         end
       end,
     })

@@ -49,6 +49,7 @@ return {
   dependencies = {
     "rcarriga/nvim-dap-ui",
     "mxsdev/nvim-dap-vscode-js",
+    "leoluz/nvim-dap-go",
     {
       "microsoft/vscode-js-debug",
       version = "1.x",
@@ -146,18 +147,44 @@ return {
           cwd = "${workspaceFolder}",
           skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
         },
-        -- {
-        --   type = "pwa-chrome",
-        --   name = "Launch Chrome to debug client",
-        --   request = "launch",
-        --   url = "http://localhost:3000",
-        --   sourceMaps = true,
-        --   protocol = "inspector",
-        --   port = 8003,
-        --   webRoot = "${workspaceFolder}/src",
-        --   -- skip files from vite's hmr
-        --   skipFiles = { "**/node_modules/**/*", "**/@vite/*", "**/src/client/*", "**/src/*" },
-        -- },
+      }
+
+      local dap = require("dap")
+      require('dap-go').setup()
+      dap.adapters.go = {
+        type = 'executable',
+        command = 'node',
+        args = { os.getenv('HOME') .. '/Downloads/vscode-go/extension/dist/debugAdapter.js' },
+      }
+      dap.configurations.go = {
+        {
+          type = 'go',
+          name = 'Debug with environmental variables',
+          request = 'launch',
+          showLog = false,
+          program = "${file}",
+          dlvToolPath = vim.fn.exepath('dlv'),
+          env = {
+            DEBUG = true,
+            GH_TOKEN = ""
+          },
+        },
+        {
+          type = 'go',
+          name = 'Debug',
+          request = 'launch',
+          showLog = true,
+          program = "${file}",
+          dlvToolPath = vim.fn.exepath('dlv')
+        },
+        {
+          -- Must be "go" or it will be ignored by the plugin
+          type = "go",
+          name = "Attach remote",
+          mode = "remote",
+          port = 8003,
+          request = "attach",
+        },
       }
     end
 

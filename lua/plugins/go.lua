@@ -1,7 +1,3 @@
-if true then
-  return {}
-end
-
 return {
   "ray-x/go.nvim",
   dependencies = {
