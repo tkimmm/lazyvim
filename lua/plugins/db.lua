@@ -1,9 +1,11 @@
+if true then return {} end
+
 return {
   {
     "kristijanhusak/vim-dadbod-ui",
     event = "VeryLazy",
     dependencies = {
-      { "tpope/vim-dadbod", event = "VeryLazy" },
+      { "tpope/vim-dadbod",                     event = "VeryLazy" },
       { "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql", "plsql" }, event = "VeryLazy" },
     },
     keys = {
