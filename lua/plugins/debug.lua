@@ -165,8 +165,6 @@ return {
           program = "${file}",
           dlvToolPath = vim.fn.exepath('dlv'),
           env = {
-            DEBUG = true,
-            GH_TOKEN = ""
           },
         },
         {
