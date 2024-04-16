@@ -80,6 +80,15 @@ if true then
         })
       end,
     },
+    {
+      "folke/which-key.nvim",
+      optional = true,
+      opts = {
+        defaults = {
+          ["<leader>d"] = { name = "+debug" },
+        },
+      },
+    },
   }
 end
 
