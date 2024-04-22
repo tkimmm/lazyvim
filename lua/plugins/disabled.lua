@@ -89,6 +89,11 @@ if true then
         },
       },
     },
+    {
+      "lambdalisue/suda.vim",
+      config = function()
+      end,
+    }
   }
 end
 
