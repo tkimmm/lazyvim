@@ -159,6 +159,14 @@ return {
       dap.configurations.go = {
         {
           type = 'go',
+          name = 'Debug',
+          request = 'launch',
+          showLog = true,
+          program = "${file}",
+          dlvToolPath = vim.fn.exepath('dlv')
+        },
+        {
+          type = 'go',
           name = 'Debug with environmental variables',
           request = 'launch',
           showLog = false,
@@ -166,14 +174,6 @@ return {
           dlvToolPath = vim.fn.exepath('dlv'),
           env = {
           },
-        },
-        {
-          type = 'go',
-          name = 'Debug',
-          request = 'launch',
-          showLog = true,
-          program = "${file}",
-          dlvToolPath = vim.fn.exepath('dlv')
         },
         {
           -- Must be "go" or it will be ignored by the plugin
