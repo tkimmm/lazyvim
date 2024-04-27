@@ -57,8 +57,8 @@ return {
     },
   },
   keys = {
-    { "<leader>c", toggleDebugging,   desc = "Debug - Backend Debug" },
-    { "<leader>C", toggleFEDebugging, desc = "Debug - Frontend Debug" },
+    { "<leader>d", toggleDebugging,   desc = "Debug - Backend Debug" },
+    { "<leader>D", toggleFEDebugging, desc = "Debug - Frontend Debug" },
     {
       "<leader>v",
       function()
@@ -145,21 +145,6 @@ return {
           resolveSourceMapLocations = nil,
           program = "${file}",
           cwd = "${workspaceFolder}",
-          skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
-        },
-        {
-          name = "Attach (node)",
-          type = "node",
-          request = "attach",
-          port = 9229,
-          cwd = "/",
-          resolveSourceMapLocations = nil,
-          attachExistingChildren = false,
-          autoAttachChildProcesses = false,
-          restart = true,
-          autoReload = {
-            enable = true,
-          },
           skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
         },
       }
