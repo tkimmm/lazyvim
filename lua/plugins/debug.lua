@@ -14,11 +14,11 @@ local function toggleDebugging()
       resolveSourceMapLocations = nil,
       attachExistingChildren = false,
       autoAttachChildProcesses = false,
-      restart = true,
-      autoReload = {
-        enable = true,
-      },
-      skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
+      -- restart = true,
+      -- autoReload = {
+      -- enable = true,
+      -- },
+      -- skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
     })
   end
   isDebugging = not isDebugging
