@@ -83,11 +83,18 @@ return {
           notify = true,
           mini = true,
           neotree = false,
+          dap = true,
         },
       })
+      local sign = vim.fn.sign_define
+
+      sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
+      sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
+      sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
+
       vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = 'grey', bold = true })
       vim.api.nvim_set_hl(0, 'LineNr', { fg = 'grey', bold = true })
       vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = 'grey', bold = true })
     end,
   },
-
+}
