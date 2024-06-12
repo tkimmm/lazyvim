@@ -36,6 +36,7 @@ if true then
           "vim",
           "vimdoc",
           "yaml",
+          "sql"
         },
       },
     },
