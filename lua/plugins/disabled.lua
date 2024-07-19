@@ -6,7 +6,6 @@ if true then
     { "RRethy/vim-illuminate",       enabled = false },
     { "folke/flash.nvim",            enabled = false },
     { "echasnovski/mini.surround",   enabled = false },
-    { "nvim-dap-virtual-text",   enabled = false },
     { "echasnovski/mini.ai",         enabled = false },
     { "nvim-neo-tree/neo-tree.nvim", enabled = false },
     { "nvim-neotest/nvim-nio" },
@@ -91,11 +90,6 @@ if true then
     {
       "folke/which-key.nvim",
       optional = true,
-      opts = {
-        defaults = {
-          ["<leader>d"] = { name = "+debug" },
-        },
-      },
     },
     {
       "lambdalisue/suda.vim",
