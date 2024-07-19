@@ -57,7 +57,7 @@ return {
     },
   },
   keys = {
-    { "<leader>d", toggleDebugging,   desc = "Debug - Backend Debug" },
+    { "<leader>d", toggleDebugging, desc = "Debug - Backend Debug" },
     { "<leader>D", toggleFEDebugging, desc = "Debug - Frontend Debug" },
     {
       "<leader>v",
@@ -147,33 +147,42 @@ return {
           cwd = "${workspaceFolder}",
           skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
         },
+        {
+          type = "node",
+          request = "launch",
+          name = "Launch Current File",
+          program = "${file}", -- This will run the current file
+          cwd = vim.fn.getcwd(),
+          runtimeExecutable = "node", -- Use node directly
+          runtimeArgs = { "--inspect" }, -- Add any additional arguments you want here
+          skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
+        },
       }
 
       local dap = require("dap")
-      require('dap-go').setup()
+      require("dap-go").setup()
       dap.adapters.go = {
-        type = 'executable',
-        command = 'node',
-        args = { os.getenv('HOME') .. '/Downloads/vscode-go/extension/dist/debugAdapter.js' },
+        type = "executable",
+        command = "node",
+        args = { os.getenv("HOME") .. "/Downloads/vscode-go/extension/dist/debugAdapter.js" },
       }
       dap.configurations.go = {
         {
-          type = 'go',
-          name = 'Debug',
-          request = 'launch',
+          type = "go",
+          name = "Debug",
+          request = "launch",
           showLog = true,
           program = "${file}",
-          dlvToolPath = vim.fn.exepath('dlv')
+          dlvToolPath = vim.fn.exepath("dlv"),
         },
         {
-          type = 'go',
-          name = 'Debug with environmental variables',
-          request = 'launch',
+          type = "go",
+          name = "Debug with environmental variables",
+          request = "launch",
           showLog = false,
           program = "${file}",
-          dlvToolPath = vim.fn.exepath('dlv'),
-          env = {
-          },
+          dlvToolPath = vim.fn.exepath("dlv"),
+          env = {},
         },
         {
           -- Must be "go" or it will be ignored by the plugin
@@ -214,7 +223,7 @@ return {
             },
             {
               id = "repl",
-              size = 0.5
+              size = 0.5,
             },
             -- {
             -- id = "repl",
