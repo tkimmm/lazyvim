@@ -156,6 +156,9 @@ return {
           runtimeExecutable = "node", -- Use node directly
           runtimeArgs = { "--inspect" }, -- Add any additional arguments you want here
           skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
+          env = {
+            NODE_ENV = "staging",
+          },
         },
       }
 
