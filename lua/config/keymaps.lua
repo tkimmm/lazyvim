@@ -31,7 +31,6 @@ vim.g.generate_right_split = 1
 -- Toggle addons
 vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
 vim.keymap.set({ "n", "v" }, "<leader>t", ":Gen Generate_TSDoc<CR>")
--- vim.keymap.set("n", "<leader><space>", ":Format<CR>", { silent = true })
 
 local builtin = require("telescope.builtin")
 

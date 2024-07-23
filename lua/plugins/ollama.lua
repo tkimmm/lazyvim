@@ -34,6 +34,9 @@ return {
       require("gen").prompts["Generate_TSDoc"] = {
         prompt = "Generate TSDocs for this function:\n $text",
         replace = false,
+        opts = {
+          display_mode = "split", -- The display mode. Can be "float" or "split".
+        },
       }
     end,
     -- keys = {

@@ -1,5 +1,4 @@
 -- if true then return {} end
-
 return {
   {
     "kristijanhusak/vim-dadbod-ui",
