@@ -4,4 +4,4 @@
 vim.g.lazygit_config = false
 
 -- Disable diagnostic by default
-vim.diagnostic.disable()
+-- vim.diagnostic.enable(false, {})
