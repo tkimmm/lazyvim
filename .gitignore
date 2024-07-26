@@ -8,3 +8,4 @@ foo.*
 data
 .env
 lazyvim.json
+lazy-lock.json
