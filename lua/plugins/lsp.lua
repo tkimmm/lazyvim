@@ -33,12 +33,16 @@ return {
             },
           },
         },
+        -- Turn off for markdown
+        filetypes = {
+          markdown = false,
+        },
         -- Enable this to enable the builtin LSP inlay hints on Neovim >= 0.10.0
         -- Be aware that you also will need to properly configure your LSP server to
         -- provide the inlay hints.
         inlay_hints = {
           enabled = true,
-          exclude = { "vue" }, -- filetypes for which you don't want to enable inlay hints
+          exclude = { "vue", "markdown" }, -- filetypes for which you don't want to enable inlay hints
         },
         -- Enable this to enable the builtin LSP code lenses on Neovim >= 0.10.0
         -- Be aware that you also will need to properly configure your LSP server to
@@ -69,6 +73,10 @@ return {
         -- LSP Server Settings
         ---@type lspconfig.options
         servers = {
+          marksman = {
+            -- Disable marksman for Markdown files
+            filetypes = {},
+          },
           lua_ls = {
             -- mason = false, -- set to false if you don't want this server to be installed with mason
             -- Use this to add any additional keymaps
