@@ -14,7 +14,7 @@ return {
     priority = 2000,
     config = function()
       require("catppuccin").setup({
-        -- flavour = "mocha", -- latte, frappe, macchiato, mocha
+        flavour = "frappe", -- latte, frappe, macchiato, mocha
         transparent_background = true,
         background = {
           light = "latte",
@@ -27,8 +27,8 @@ return {
           shade = "dark",
           percentage = 0.15,
         },
-        no_italic = false,    -- Force no italic
-        no_bold = false,      -- Force no bold
+        no_italic = false, -- Force no italic
+        no_bold = false, -- Force no bold
         no_underline = false, -- Force no underline
         styles = {
           comments = { "italic" },
@@ -74,7 +74,11 @@ return {
             crust = "#0e0f16",
           },
         },
-        custom_highlights = {},
+        custom_highlights = function(colors)
+          return {
+            LineNr = { fg = colors.text, bold = true },
+          }
+        end,
         integrations = {
           cmp = true,
           gitsigns = true,
@@ -92,9 +96,9 @@ return {
       sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
       sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
 
-      vim.api.nvim_set_hl(0, 'LineNrAbove', { fg = 'grey', bold = true })
-      vim.api.nvim_set_hl(0, 'LineNr', { fg = 'grey', bold = true })
-      vim.api.nvim_set_hl(0, 'LineNrBelow', { fg = 'grey', bold = true })
+      vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "grey", bold = true })
+      vim.api.nvim_set_hl(0, "LineNr", { fg = "grey", bold = true })
+      vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "grey", bold = true })
     end,
   },
 }
