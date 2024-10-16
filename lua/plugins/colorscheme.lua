@@ -14,7 +14,7 @@ return {
     priority = 2000,
     config = function()
       require("catppuccin").setup({
-        flavour = "frappe", -- latte, frappe, macchiato, mocha
+        flavour = "macchiato", -- latte, frappe, macchiato, mocha
         transparent_background = true,
         background = {
           light = "latte",
@@ -76,7 +76,9 @@ return {
         },
         custom_highlights = function(colors)
           return {
-            LineNr = { fg = colors.text, bold = true },
+            LineNr = { fg = colors.yellow, bold = true },
+            LineNrBelow = { fg = colors.subtext0, bold = false },
+            LineNrAbove = { fg = colors.subtext0, bold = false },
           }
         end,
         integrations = {
@@ -95,10 +97,6 @@ return {
       sign("DapBreakpoint", { text = "●", texthl = "DapBreakpoint", linehl = "", numhl = "" })
       sign("DapBreakpointCondition", { text = "●", texthl = "DapBreakpointCondition", linehl = "", numhl = "" })
       sign("DapLogPoint", { text = "◆", texthl = "DapLogPoint", linehl = "", numhl = "" })
-
-      vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "grey", bold = true })
-      vim.api.nvim_set_hl(0, "LineNr", { fg = "grey", bold = true })
-      vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "grey", bold = true })
     end,
   },
 }
