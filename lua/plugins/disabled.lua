@@ -8,6 +8,7 @@ if true then
     { "echasnovski/mini.surround",   enabled = false },
     { "echasnovski/mini.ai",         enabled = false },
     { "nvim-neo-tree/neo-tree.nvim", enabled = false },
+    { "theHamsta/nvim-dap-virtual-text", enabled = false },
     { "nvim-neotest/nvim-nio" },
     {
       "nvim-treesitter/nvim-treesitter",

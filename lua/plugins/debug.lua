@@ -11,14 +11,15 @@ local function toggleDebugging()
       request = "attach",
       port = 9229,
       cwd = "/",
-      resolveSourceMapLocations = nil,
+      -- resolveSourceMapLocations = nil,
+      resolveSourceMapLocations = { "${workspaceFolder}/**", "!**/node_modules/**" },
       attachExistingChildren = false,
       autoAttachChildProcesses = false,
       -- restart = true,
       -- autoReload = {
       -- enable = true,
       -- },
-      -- skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
+      skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
     })
   end
   isDebugging = not isDebugging
@@ -164,11 +165,11 @@ return {
 
       local dap = require("dap")
       require("dap-go").setup()
-      dap.adapters.go = {
-        type = "executable",
-        command = "node",
-        args = { os.getenv("HOME") .. "/Downloads/vscode-go/extension/dist/debugAdapter.js" },
-      }
+      -- dap.adapters.go = {
+      --   type = "executable",
+      --   command = "node",
+      --   args = { os.getenv("HOME") .. "/Downloads/vscode-go/extension/dist/debugAdapter.js" },
+      -- }
       dap.configurations.go = {
         {
           type = "go",
