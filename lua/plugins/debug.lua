@@ -11,15 +11,21 @@ local function toggleDebugging()
       request = "attach",
       port = 9229,
       cwd = "/",
-      -- resolveSourceMapLocations = nil,
-      resolveSourceMapLocations = { "${workspaceFolder}/**", "!**/node_modules/**" },
+      resolveSourceMapLocations = nil,
       attachExistingChildren = false,
       autoAttachChildProcesses = false,
       -- restart = true,
       -- autoReload = {
       -- enable = true,
       -- },
-      skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**", "**/google.com/**" },
+      skipFiles = {
+        "${workspaceFolder}/node_modules/**/**",
+        "${workspaceFolder}/lib/**/**",
+        "<node_internals>/**/*.js",
+        "**/node_modules/**",
+        "<node_internals>/**",
+        "http?(s):/**",
+      },
     })
   end
   isDebugging = not isDebugging
@@ -58,8 +64,8 @@ return {
     },
   },
   keys = {
-    { "<leader>d", toggleDebugging, desc = "Debug - Backend Debug" },
-    { "<leader>D", toggleFEDebugging, desc = "Debug - Frontend Debug" },
+    { "<leader>dd", toggleDebugging, desc = "Debug - Backend Debug" },
+    { "<leader>DD", toggleFEDebugging, desc = "Debug - Frontend Debug" },
     {
       "<leader>v",
       function()
@@ -229,10 +235,6 @@ return {
               id = "repl",
               size = 0.5,
             },
-            -- {
-            -- id = "repl",
-            -- size = 0.35,
-            -- },
           },
           position = "bottom",
           size = 10,
