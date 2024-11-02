@@ -1,10 +1,9 @@
 return {
-  -- Custom Parameters (with defaults)
   {
     "David-Kunz/gen.nvim",
     opts = {
-      -- model = "mistral", -- The default model to use.
       model = "llama3", -- The default model to use.
+      -- model = "mistral", -- The default model to use.
       host = "localhost", -- The host running the Ollama service.
       port = "11434", -- The port on which the Ollama service is listening.
       display_mode = "split", -- The display mode. Can be "float" or "split".
@@ -30,7 +29,8 @@ return {
       -- list_models = '<omitted lua function>', -- Retrieves a list of model names
       debug = false, -- Prints errors and the command which is run.
     },
-    config = function()
+    config = function(_, opts)
+      require("gen").setup(opts)
       require("gen").prompts["Generate_TSDoc"] = {
         prompt = "Generate TSDocs for this function:\n $text",
         replace = false,
