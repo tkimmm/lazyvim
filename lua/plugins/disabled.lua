@@ -14,6 +14,7 @@ if true then
       "nvim-treesitter/nvim-treesitter",
       opts = {
         ensure_installed = {
+          "go",
           "bash",
           "hurl",
           "html",
