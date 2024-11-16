@@ -31,6 +31,7 @@ return {
       },
       env_file = {
         ".dev.vars",
+        ".env",
       },
     },
     keys = {
