@@ -6,7 +6,14 @@ return {
     },
   },
   config = function()
-    local markdownlint = require("lint").linters.markdownlint
+    local lint = require("lint")
+    lint.linters_by_ft = {
+      javascript = { "biome" },
+      typescript = { "biome" },
+      javascriptreact = { "biome" },
+      typescriptreact = { "biome" },
+    }
+    local markdownlint = lint.linters.markdownlint
     markdownlint.args = {
       "--disable",
       "MD013",
