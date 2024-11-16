@@ -97,6 +97,13 @@ if true then
       "lambdalisue/suda.vim",
       config = function()
       end,
-    }
+    },
+      {
+    "folke/trouble.nvim",
+    opts = {
+        use_diagnostic_signs = true,
+        focus = true,
+      },
+    },
   }
 end
