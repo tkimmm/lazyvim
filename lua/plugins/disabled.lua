@@ -98,7 +98,7 @@ if true then
       config = function()
       end,
     },
-      {
+    {
     "folke/trouble.nvim",
     opts = {
         use_diagnostic_signs = true,
