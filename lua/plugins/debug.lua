@@ -50,6 +50,18 @@ local function toggleFEDebugging()
   isFEDebugging = not isFEDebugging
 end
 
+local function get_package_json_script(script_name)
+  local package_json = vim.fn.getcwd() .. "/package.json"
+  if vim.fn.filereadable(package_json) == 1 then
+    local content = vim.fn.join(vim.fn.readfile(package_json), "\n")
+    local package_data = vim.fn.json_decode(content)
+    if package_data and package_data.scripts and package_data.scripts[script_name] then
+      return package_data.scripts[script_name]
+    end
+  end
+  return nil
+end
+
 return {
   "mfussenegger/nvim-dap",
   event = "VeryLazy",
@@ -166,6 +178,25 @@ return {
           env = {
             NODE_ENV = "staging",
           },
+        },
+        {
+          type = "node",
+          request = "launch",
+          name = "Launch Package.json Script",
+          runtimeExecutable = "npm",
+          runtimeArgs = function()
+            local script_name = vim.fn.input("Enter script name from package.json: ")
+            local script = get_package_json_script(script_name)
+            if script then
+              return { "run", script_name }
+            else
+              print("Script not found in package.json")
+              return {}
+            end
+          end,
+          cwd = "${workspaceFolder}",
+          console = "integratedTerminal",
+          internalConsoleOptions = "neverOpen",
         },
       }
 

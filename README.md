@@ -21,6 +21,7 @@ rm -rf ~/.config/nvim/
 
 - Yarn
 - Golang
+- Node
 
 ````
 git clone https://github.com/tkimmm/lazyvim.git ~/.config/nvim
