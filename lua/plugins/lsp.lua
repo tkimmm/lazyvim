@@ -4,6 +4,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      document_highlight = {
+        enabled = false,
+      },
       servers = {
         denols = {
           filetypes = { "typescript", "typescriptreact" },
