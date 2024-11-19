@@ -7,23 +7,6 @@ return {
   },
   config = function()
     require("go").setup()
-
-    -- Disable hints
-    require("lspconfig").gopls.setup({
-      settings = {
-        gopls = {
-          hints = {
-            assignVariableTypes = false,
-            compositeLiteralFields = false,
-            compositeLiteralTypes = false,
-            constantValues = false,
-            functionTypeParameters = false,
-            parameterNames = false,
-            rangeVariableTypes = false,
-          },
-        },
-      },
-    })
   end,
   event = { "CmdlineEnter" },
   ft = { "go", "gomod" },
