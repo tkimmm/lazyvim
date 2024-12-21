@@ -31,15 +31,3 @@ vim.g.generate_right_split = 1
 -- Toggle addons
 vim.keymap.set({ "n", "v" }, "<leader>o", ":Gen<CR>")
 vim.keymap.set({ "n", "v" }, "<leader>t", ":Gen Generate_TSDoc<CR>")
-
-local builtin = require("telescope.builtin")
-
-vim.keymap.set("n", "<C-p>", function()
-  builtin.find_files({ hidden = "true", no_ignore = "true" })
-end, { desc = "[F]ind [H]idden files" })
-
-vim.keymap.set("n", "<C-f>", function()
-  builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-    previewer = true,
-  }))
-end, { desc = "[f] Fuzzily search in current buffer" })

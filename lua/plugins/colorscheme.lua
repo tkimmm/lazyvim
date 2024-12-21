@@ -90,6 +90,7 @@ return {
           mini = true,
           neotree = false,
           dap = true,
+          fzf = true,
         },
       })
       local sign = vim.fn.sign_define

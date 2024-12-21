@@ -92,6 +92,9 @@ if true then
     {
       "folke/which-key.nvim",
       optional = true,
+      opts = {
+        preset = "modern",
+      },
     },
     {
       "lambdalisue/suda.vim",
@@ -104,6 +107,16 @@ if true then
         use_diagnostic_signs = true,
         focus = true,
       },
+    },
+    {
+    "folke/snacks.nvim",
+    opts = {
+      dashboard = { enabled = false },
+      scratch = { enabled = false },
+      terminal = { enabled = false },
+      scroll = { enabled = false },
+      indent = { enabled = false },
+    },
     },
   }
 end
