@@ -82,7 +82,6 @@ return {
           }
         end,
         integrations = {
-          cmp = true,
           gitsigns = true,
           nvimtree = true,
           telescope = true,
@@ -91,6 +90,8 @@ return {
           neotree = false,
           dap = true,
           fzf = true,
+          -- blink = true,
+          -- cmp = true,
         },
       })
       local sign = vim.fn.sign_define
