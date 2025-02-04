@@ -4,6 +4,9 @@ return {
     opts = {
       model = "llama3", -- The default model to use.
       -- model = "mistral", -- The default model to use.
+      -- model = "codestra:latest", -- The default model to use.
+      -- model = "deepseek-r1:14b", -- The default model to use.
+      -- model = "gemma:2b", -- The default model to use.
       host = "localhost", -- The host running the Ollama service.
       port = "11434", -- The port on which the Ollama service is listening.
       display_mode = "split", -- The display mode. Can be "float" or "split".
