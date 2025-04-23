@@ -7,8 +7,8 @@ return {
       { "<leader>M", "<cmd>MarkdownPreviewToggle<CR>", desc = "View Markdown", { silent = true } },
     },
     init = function()
-      vim.g.mkdp_filetypes = { "markdown" }
+      vim.g.mkdp_filetypes = { "markdown", "mmd" }
     end,
-    ft = { "markdown" },
+    ft = { "markdown", "mmd" },
   },
 }
