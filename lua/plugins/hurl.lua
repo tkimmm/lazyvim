@@ -36,13 +36,13 @@ return {
     },
     keys = {
       -- Run API request
-      { "<leader>hh", "<cmd>HurlRunner<CR>", desc = "Run All requests" },
-      { "<leader>hA", "<cmd>HurlRunnerAt<CR>", desc = "Run Api request" },
-      { "<leader>hs", "<cmd>HurlRunnerToEntry<CR>", desc = "Run Api request to entry" },
-      { "<leader>hd", "<cmd>HurlToggleMode<CR>", desc = "Hurl Toggle Mode" },
-      { "<leader>hf", "<cmd>HurlVerbose<CR>", desc = "Run Api in verbose mode" },
+      { "<leader>Hh", "<cmd>HurlRunner<CR>", desc = "Run All requests" },
+      { "<leader>HA", "<cmd>HurlRunnerAt<CR>", desc = "Run Api request" },
+      { "<leader>Hs", "<cmd>HurlRunnerToEntry<CR>", desc = "Run Api request to entry" },
+      { "<leader>Hd", "<cmd>HurlToggleMode<CR>", desc = "Hurl Toggle Mode" },
+      { "<leader>Hf", "<cmd>HurlVerbose<CR>", desc = "Run Api in verbose mode" },
       -- Run Hurl request in visual mode
-      { "<leader>aa", ":HurlRunner<CR>", desc = "Hurl Runner", mode = "v" },
+      { "<leader>Ha", ":HurlRunner<CR>", desc = "Hurl Runner", mode = "v" },
     },
   },
 }

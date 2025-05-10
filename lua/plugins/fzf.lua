@@ -10,6 +10,15 @@ return {
           require("fzf-lua").files({
             hidden = true,
             no_ignore = true,
+            layout = "default",
+          })
+        end,
+      },
+      {
+        "<C-f>",
+        function()
+          require("fzf-lua").blines({
+            layout = "default",
           })
         end,
       },
