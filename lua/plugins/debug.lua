@@ -113,13 +113,13 @@ return {
       end,
       desc = "Debug - Step Out",
     },
-    {
-      "<leader>/",
-      function()
-        require("dap").eval()
-      end,
-      desc = "Debug - Eval",
-    },
+    -- {
+    --   "<leader>/",
+    --   function()
+    --     require("dap").eval()
+    --   end,
+    --   desc = "Debug - Eval",
+    -- },
   },
   config = function()
     require("dap-vscode-js").setup({
@@ -286,3 +286,191 @@ return {
     dap.listeners.before.event_exited["dapui_config"] = dapui.close
   end,
 }
+
+-- plugins/debug.lua
+-- Cloudflare Workers debugging configuration for LazyVim
+
+-- local function get_cloudflare_worker_name()
+--   -- First try to get from wrangler.toml
+--   local wrangler_toml = vim.fn.getcwd() .. "/wrangler.toml"
+--   if vim.fn.filereadable(wrangler_toml) == 1 then
+--     local content = vim.fn.join(vim.fn.readfile(wrangler_toml), "\n")
+--     local name_match = content:match("name%s*=%s*[\"']([^\"']+)[\"']")
+--     if name_match then
+--       return name_match
+--     end
+--   end
+--
+--   -- Fallback to package.json
+--   local package_json = vim.fn.getcwd() .. "/package.json"
+--   if vim.fn.filereadable(package_json) == 1 then
+--     local content = vim.fn.join(vim.fn.readfile(package_json), "\n")
+--     local package_data = vim.fn.json_decode(content)
+--     if package_data and package_data.name then
+--       return package_data.name
+--     end
+--   end
+--
+--   return nil
+-- end
+--
+-- local function check_wrangler_running()
+--   local handle = io.popen("pgrep -f 'wrangler dev'")
+--   if handle then
+--     local result = handle:read("*a")
+--     handle:close()
+--     return result and result ~= ""
+--   end
+--   return false
+-- end
+--
+-- local function get_debug_port()
+--   -- Check if wrangler is running with custom port
+--   local handle = io.popen("ps aux | grep 'wrangler dev' | grep -v grep")
+--   if handle then
+--     local result = handle:read("*a")
+--     handle:close()
+--
+--     -- Look for --inspector-port flag
+--     local port = result:match("%-%-inspector%-port[=%s]+(%d+)")
+--     if port then
+--       return tonumber(port)
+--     end
+--   end
+--
+--   -- Default port
+--   return 9229
+-- end
+--
+-- return {
+--   -- Override the existing nvim-dap configuration
+--   {
+--     "mfussenegger/nvim-dap",
+--     optional = true,
+--     dependencies = {
+--       {
+--         "microsoft/vscode-js-debug",
+--         build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+--       },
+--     },
+--     opts = function()
+--       local dap = require("dap")
+--
+--       -- Add custom event listeners for better debugging
+--       dap.listeners.after.event_initialized["cloudflare_debug"] = function(session)
+--         print("✅ Debug session initialized for Cloudflare Worker")
+--       end
+--
+--       dap.listeners.after.event_terminated["cloudflare_debug"] = function(session, body)
+--         print("❌ Debug session terminated. Reason: " .. vim.inspect(body))
+--       end
+--
+--       dap.listeners.after.event_exited["cloudflare_debug"] = function(session, body)
+--         print("🚪 Debug session exited. Code: " .. vim.inspect(body))
+--       end
+--
+--       dap.listeners.after.disconnect["cloudflare_debug"] = function(session, body)
+--         print("🔌 Debug session disconnected. Reason: " .. vim.inspect(body))
+--       end
+--
+--       -- Configure for JavaScript/TypeScript
+--       for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+--         if not dap.configurations[language] then
+--           dap.configurations[language] = {}
+--         end
+--
+--         -- Add Cloudflare Workers configuration with correct WebSocket path
+--         table.insert(dap.configurations[language], {
+--           name = "Debug Cloudflare Worker",
+--           type = "pwa-node",
+--           request = "attach",
+--           websocketAddress = function()
+--             local port = get_debug_port()
+--             local address = "ws://127.0.0.1:" .. port .. "/ws"
+--             print("🔗 Connecting to: " .. address)
+--             return address
+--           end,
+--           sourceMaps = true,
+--           resolveSourceMapLocations = nil,
+--           skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**" },
+--           timeout = 30000,
+--           localRoot = vim.fn.getcwd(),
+--           remoteRoot = "/",
+--         })
+--
+--         -- Alternative: Try direct port connection as fallback
+--         table.insert(dap.configurations[language], {
+--           name = "Debug Cloudflare Worker (Port)",
+--           type = "pwa-node",
+--           request = "attach",
+--           port = function()
+--             return get_debug_port()
+--           end,
+--           sourceMaps = true,
+--           skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**" },
+--           timeout = 30000,
+--         })
+--       end
+--     end,
+--     keys = {
+--       {
+--         "<leader>dC",
+--         function()
+--           -- Check if wrangler is running
+--           if not check_wrangler_running() then
+--             vim.notify(
+--               "⚠️  Wrangler dev server is not running. Please start with 'wrangler dev'",
+--               vim.log.levels.WARN
+--             )
+--             return
+--           end
+--
+--           local port = get_debug_port()
+--           local address = "ws://127.0.0.1:" .. port .. "/ws"
+--
+--           vim.notify("🔍 Connecting to Cloudflare Worker on: " .. address)
+--
+--           -- Try to connect with the correct Cloudflare format
+--           require("dap").run({
+--             name = "Debug Cloudflare Worker",
+--             type = "pwa-node",
+--             request = "attach",
+--             websocketAddress = address,
+--             sourceMaps = true,
+--             resolveSourceMapLocations = nil,
+--             skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**" },
+--             timeout = 30000,
+--           })
+--         end,
+--         desc = "Debug Cloudflare Worker",
+--       },
+--       {
+--         "<leader>dF",
+--         function()
+--           -- Fallback: Try regular port connection
+--           if not check_wrangler_running() then
+--             vim.notify(
+--               "⚠️  Wrangler dev server is not running. Please start with 'wrangler dev'",
+--               vim.log.levels.WARN
+--             )
+--             return
+--           end
+--
+--           local port = get_debug_port()
+--           vim.notify("🔍 Connecting to port " .. port .. " (fallback method)")
+--
+--           require("dap").run({
+--             name = "Debug Cloudflare Worker (Port)",
+--             type = "pwa-node",
+--             request = "attach",
+--             port = port,
+--             sourceMaps = true,
+--             skipFiles = { "**/node_modules/**", "<node_internals>/**", "http?(s):/**" },
+--             timeout = 30000,
+--           })
+--         end,
+--         desc = "Debug Cloudflare Worker (Port)",
+--       },
+--     },
+--   },
+-- }

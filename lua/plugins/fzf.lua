@@ -10,6 +10,7 @@ return {
           require("fzf-lua").files({
             hidden = true,
             no_ignore = true,
+            fd_opts = "--hidden --no-ignore --exclude node_modules --exclude .git --exclude dist",
             layout = "default",
           })
         end,

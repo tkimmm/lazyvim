@@ -5,6 +5,8 @@ return {
     opts = function(_, opts)
       opts.suggestion = opts.suggestion or {}
       opts.suggestion.debounce = 200
+      opts.suggestion.auto_trigger = false
+      opts.suggestion.enabled = false
       return opts
     end,
   },
@@ -66,21 +68,27 @@ return {
         "delete_dir",
         "bash",
       },
+      auto_apply = false,
       behaviour = {
         auto_suggestions = false,
+        auto_apply_diff_after_generation = false,
       },
       provider = "copilot",
       switch_provider = {
         providers = { "copilot", "ollama" },
       },
-      copilot = {
-        model = "claude-3.7-sonnet",
-        temperature = 0,
-        max_tokens = 8192,
-      },
-      ollama = {
-        endpoint = "http://10.1.3.231:11434",
-        model = "llama3.1:8b-instruct-q8_0",
+      providers = {
+        copilot = {
+          model = "claude-sonnet-4-20250514",
+          extra_request_body = {
+            temperature = 0,
+            max_tokens = 8192,
+          },
+        },
+        ollama = {
+          endpoint = "http://10.1.3.231:11434",
+          model = "qwen3-coder:latest",
+        },
       },
       web_search_engine = {
         provider = "tavily", -- tavily, serpapi, searchapi, google, kagi, brave, or searxng
@@ -187,4 +195,28 @@ return {
       })
     end,
   },
+  -- {
+  --   "coder/claudecode.nvim",
+  --   dependencies = { "folke/snacks.nvim" },
+  --   config = true,
+  --   keys = {
+  --     { "<leader>e", nil, desc = "AI/Claude Code" },
+  --     { "<leader>ec", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
+  --     { "<leader>ef", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
+  --     { "<leader>er", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
+  --     { "<leader>eC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
+  --     { "<leader>em", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
+  --     { "<leader>eb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
+  --     { "<leader>es", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
+  --     {
+  --       "<leader>es",
+  --       "<cmd>ClaudeCodeTreeAdd<cr>",
+  --       desc = "Add file",
+  --       ft = { "NvimTree", "neo-tree", "oil", "minifiles" },
+  --     },
+  --     -- Diff management
+  --     { "<leader>ea", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
+  --     { "<leader>ed", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
+  --   },
+  -- },
 }

@@ -27,3 +27,9 @@ vim.keymap.set("n", "<leader>Y", '"+Y')
 -- ollama commands
 vim.g.generate_auto_split = 1
 vim.g.generate_right_split = 1
+
+-- clear highlights after searching on searching
+vim.keymap.set("n", "<CR>", function()
+  vim.cmd("nohl")
+  return "<CR>"
+end, { expr = true, desc = "Enter and clear search highlights" })

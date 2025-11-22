@@ -4,7 +4,10 @@ return {
   opts = {
     lazygit = {
       configure = true,
-      theme_path = vim.fs.normalize(vim.fn.stdpath("cache") .. "/lazygit-theme.yml"),
+      -- theme_path = vim.fs.normalize(vim.fn.stdpath("cache") .. "/lazygit-theme.yml"),
+    },
+    words = {
+      enabled = false,
     },
     -- lazy.nvim
     terminal = {
