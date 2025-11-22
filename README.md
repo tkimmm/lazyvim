@@ -1,5 +1,11 @@
 # 💤 LazyVim
 
+### Pre-reqs (Path)
+
+- Yarn
+- Golang
+- Node
+
 ### Backup
 
 ```
@@ -17,11 +23,7 @@ rm -rf ~/.cache/nvim{,.bak}
 rm -rf ~/.config/nvim/
 ```
 
-### Pre-reqs (Path)
-
-- Yarn
-- Golang
-- Node
+then
 
 ````
 git clone https://github.com/tkimmm/lazyvim.git ~/.config/nvim
