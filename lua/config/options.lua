@@ -10,3 +10,6 @@ vim.opt.wrap = true
 
 -- Disable diagnostic by default
 -- vim.diagnostic.enable(false, {})
+
+-- Allow buffer autoupdate when updated through another source
+vim.opt.autoread = true

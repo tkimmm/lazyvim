@@ -25,8 +25,8 @@ vim.keymap.set("v", "<leader>y", '"+y')
 vim.keymap.set("n", "<leader>Y", '"+Y')
 
 -- ollama commands
-vim.g.generate_auto_split = 1
-vim.g.generate_right_split = 1
+-- vim.g.generate_auto_split = 1
+-- vim.g.generate_right_split = 1
 
 -- clear highlights after searching on searching
 vim.keymap.set("n", "<CR>", function()

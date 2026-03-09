@@ -11,212 +11,157 @@ return {
     end,
   },
   {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    lazy = true,
-    version = false, -- set this if you want to always pull the latest change
-    config = function(_, opts)
-      _G.toggle_ai_provider = function()
-        local current_provider = vim.g.avante_current_provider or "copilot"
-        local new_provider = current_provider == "copilot" and "ollama" or "copilot"
-        vim.g.avante_current_provider = new_provider
-        vim.cmd("AvanteSwitchProvider " .. new_provider)
-      end
-      vim.api.nvim_create_user_command("AvanteToggleProvider", function()
-        _G.toggle_ai_provider()
-      end, {})
-      vim.keymap.set("n", prefix .. "p", _G.toggle_ai_provider, { desc = "Toggle between Ollama and Copilot" })
-      require("avante").setup(opts)
-    end,
+    "olimorris/codecompanion.nvim",
+    version = "^18.0.0",
+    lazy = false,
     opts = {
-      -- add any opts here
-      mappings = {
-        ask = prefix .. "<CR>",
-        edit = prefix .. "e",
-        refresh = prefix .. "r",
-        focus = prefix .. "f",
-        toggle = {
-          default = prefix .. "a",
-          debug = prefix .. "d",
-          hint = prefix .. "h",
-          suggestion = prefix .. "s",
-          repomap = prefix .. "R",
-        },
-        diff = {
-          next = "]c",
-          prev = "[c",
-        },
-        files = {
-          add_current = prefix .. ".",
-        },
-        -- Add provider switching shortcuts
-        provider = {
-          copilot = prefix .. "c",
-          ollama = prefix .. "o",
-          switch = prefix .. "p", -- Add switch provider shortcut
-        },
-      },
-      disabled_tools = {
-        "list_files",
-        "search_files",
-        "read_file",
-        "create_file",
-        "rename_file",
-        "delete_file",
-        "create_dir",
-        "rename_dir",
-        "delete_dir",
-        "bash",
-      },
-      auto_apply = false,
-      behaviour = {
-        auto_suggestions = false,
-        auto_apply_diff_after_generation = false,
-      },
-      provider = "copilot",
-      switch_provider = {
-        providers = { "copilot", "ollama" },
-      },
-      providers = {
-        copilot = {
-          model = "claude-sonnet-4-20250514",
-          extra_request_body = {
-            temperature = 0,
-            max_tokens = 8192,
-          },
-        },
-        ollama = {
-          endpoint = "http://10.1.3.231:11434",
-          model = "qwen3-coder:latest",
-        },
-      },
-      web_search_engine = {
-        provider = "tavily", -- tavily, serpapi, searchapi, google, kagi, brave, or searxng
-        proxy = nil, -- proxy support, e.g., http://127.0.0.1:7890
-      },
-    },
-    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
-    -- dynamically build it, taken from astronvim
-    build = vim.fn.has("win32") == 1 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      or "make",
-    dependencies = {
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          -- recommended settings
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
+      adapters = {
+        gemini = function()
+          return require("codecompanion.adapters").extend("gemini", {
+            env = {
+              api_key = "GEMINI_API_KEY",
             },
-            -- required for Windows users
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        -- Make sure to set this up properly if you have lazy=true
-        "MeanderingProgrammer/render-markdown.nvim",
-        dependencies = {
-          -- make sure rendering happens even without opening a markdown file first
-          "yetone/avante.nvim",
-        },
-        opts = function(_, opts)
-          opts.file_types = opts.file_types or { "markdown", "norg", "rmd", "org" }
-          vim.list_extend(opts.file_types, { "Avante" })
+          })
         end,
       },
+      display = {
+        diff = {},
+      },
+      interactions = {
+        chat = {
+          adapter = "gemini", -- switched from "gemini" to "copilot"
+          model = "gemini-2.5-flash",
+          variables = {
+            ["buffer"] = {
+              opts = {
+                default_params = "diff",
+              },
+            },
+          },
+          tools = {
+            opts = {
+              default_tools = {
+                "files",
+              },
+            },
+          },
+        },
+        inline = {
+          adapter = "gemini",
+          model = "gemini-2.5-flash",
+          -- adapter = "copilot",
+          keymaps = {
+            accept_change = {
+              modes = { n = "gda" },
+            },
+            reject_change = {
+              modes = { n = "gdr" },
+            },
+            always_accept = {
+              modes = { n = "gdA" },
+            },
+          },
+        },
+      },
     },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function(_, opts)
+      require("codecompanion").setup(opts)
+      vim.keymap.set({ "n", "v" }, prefix .. "a", function()
+        require("codecompanion").toggle({ window_opts = { width = 0.3 } })
+      end, {
+        noremap = true,
+        silent = true,
+        desc = "Toggle CodeCompanion chat",
+      })
+      vim.keymap.set({ "n", "v" }, prefix .. "s", "<cmd>CodeCompanionChat Add<cr>", {
+        noremap = true,
+        silent = true,
+        desc = "Add buffer/selection to chat",
+      })
+    end,
   },
   {
-    "ravitemer/mcphub.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-    cmd = "MCPHub", -- lazy load by default
-    build = "npm install -g mcp-hub@latest", -- Installs globally
-    config = function()
-      require("mcphub").setup({
-        -- Server configuration
-        port = 37373, -- Port for MCP Hub Express API
-        config = vim.fn.expand("~/.config/mcphub/servers.json"), -- Config file path
+    "saghen/blink.cmp",
+    opts_extend = { "sources.default" },
+    opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      opts.sources.default = opts.sources.default or {}
+      opts.sources.providers = opts.sources.providers or {}
 
-        native_servers = {}, -- add your native servers here
-        -- Extension configurations
-        auto_approve = true,
-        extensions = {
-          avante = {
-            make_slash_commands = true, -- make /slash commands from MCP server prompts
-          },
-        },
+      table.insert(opts.sources.default, "codecompanion")
 
-        -- UI configuration
-        ui = {
-          window = {
-            width = 0.8, -- Window width (0-1 ratio)
-            height = 0.8, -- Window height (0-1 ratio)
-            border = "rounded", -- Window border style
-            relative = "editor", -- Window positioning
-            zindex = 50, -- Window stack order
-          },
-        },
+      opts.sources.providers.codecompanion = {
+        name = "CodeCompanion",
+        module = "codecompanion.providers.completion.blink",
+      }
 
-        -- Event callbacks
-        on_ready = function(hub) end, -- Called when hub is ready
-        on_error = function(err) end, -- Called on errors
+      opts.sources.per_filetype = opts.sources.per_filetype or {}
+      opts.sources.per_filetype.codecompanion = { "codecompanion" }
 
-        -- Logging configuration
-        log = {
-          level = vim.log.levels.WARN, -- Minimum log level
-          to_file = false, -- Enable file logging
-          file_path = nil, -- Custom log file path
-          prefix = "MCPHub", -- Log message prefix
-        },
-      })
-      require("avante").setup({
-        -- other config
-        -- The system_prompt type supports both a string and a function that returns a string. Using a function here allows dynamically updating the prompt with mcphub
-        system_prompt = function()
-          local hub = require("mcphub").get_hub_instance()
-          return hub:get_active_servers_prompt()
-        end,
-        -- The custom_tools type supports both a list and a function that returns a list. Using a function here prevents requiring mcphub before it's loaded
-        custom_tools = function()
-          return {
-            require("mcphub.extensions.avante").mcp_tool(),
-          }
-        end,
-      })
+      return opts
     end,
   },
-  -- {
-  --   "coder/claudecode.nvim",
-  --   dependencies = { "folke/snacks.nvim" },
-  --   config = true,
-  --   keys = {
-  --     { "<leader>e", nil, desc = "AI/Claude Code" },
-  --     { "<leader>ec", "<cmd>ClaudeCode<cr>", desc = "Toggle Claude" },
-  --     { "<leader>ef", "<cmd>ClaudeCodeFocus<cr>", desc = "Focus Claude" },
-  --     { "<leader>er", "<cmd>ClaudeCode --resume<cr>", desc = "Resume Claude" },
-  --     { "<leader>eC", "<cmd>ClaudeCode --continue<cr>", desc = "Continue Claude" },
-  --     { "<leader>em", "<cmd>ClaudeCodeSelectModel<cr>", desc = "Select Claude model" },
-  --     { "<leader>eb", "<cmd>ClaudeCodeAdd %<cr>", desc = "Add current buffer" },
-  --     { "<leader>es", "<cmd>ClaudeCodeSend<cr>", mode = "v", desc = "Send to Claude" },
-  --     {
-  --       "<leader>es",
-  --       "<cmd>ClaudeCodeTreeAdd<cr>",
-  --       desc = "Add file",
-  --       ft = { "NvimTree", "neo-tree", "oil", "minifiles" },
-  --     },
-  --     -- Diff management
-  --     { "<leader>ea", "<cmd>ClaudeCodeDiffAccept<cr>", desc = "Accept diff" },
-  --     { "<leader>ed", "<cmd>ClaudeCodeDiffDeny<cr>", desc = "Deny diff" },
-  --   },
-  -- },
+  {
+    "NickvanDyke/opencode.nvim", -- AI-powered code assistant with chat interface
+    dependencies = {
+      { "folke/snacks.nvim", opts = { input = {}, picker = {}, terminal = {} } },
+    },
+    config = function()
+      -- Configure opencode with empty options table
+      vim.g.opencode_opts = {}
+
+      -- Auto-reload files when changed externally (useful for AI edits)
+      vim.o.autoread = true
+
+      -- Quick AI query: Ask question with current context
+      vim.keymap.set({ "n", "x" }, prefix .. "q", function()
+        require("opencode").ask("@this: ", { subqmit = true })
+      end, { desc = "Ask opencode" })
+
+      -- Show action menu with available AI commands
+      vim.keymap.set({ "n", "x" }, prefix .. "x", function()
+        require("opencode").select()
+      end, { desc = "Execute opencode action…" })
+
+      -- Toggle AI chat window visibility
+      vim.keymap.set({ "n", "t" }, prefix .. "t", function()
+        require("opencode").toggle({ context = { file = vim.api.nvim_buf_get_name(0) } })
+      end, { desc = "Toggle opencode (with file context)" })
+
+      -- Add text selection to AI context (use with motions: <leader>ajip, <leader>aj}, etc.)
+      vim.keymap.set({ "n", "x" }, prefix .. "j", function()
+        return require("opencode").operator("@this ")
+      end, { expr = true, desc = "Add range to opencode" })
+
+      -- Add current line to AI context
+      vim.keymap.set("n", prefix .. "J", function()
+        return require("opencode").operator("@this ") .. "_"
+      end, { expr = true, desc = "Add line to opencode" })
+
+      -- Scroll up in AI chat window
+      vim.keymap.set("n", prefix .. "u", function()
+        require("opencode").command("session.half.page.up")
+      end, { desc = "opencode half page up" })
+
+      -- Scroll down in AI chat window
+      vim.keymap.set("n", prefix .. "k", function()
+        require("opencode").command("session.half.page.down")
+      end, { desc = "opencode half page down" })
+
+      -- Number manipulation shortcuts
+      vim.keymap.set("n", "+", "<C-a>", { desc = "Increment", noremap = true })
+      vim.keymap.set("n", "-", "<C-x>", { desc = "Decrement", noremap = true })
+    end,
+  },
+  "greggh/claude-code.nvim",
+  dependencies = {
+    "nvim-lua/plenary.nvim", -- Required for git operations
+  },
+  config = function()
+    require("claude-code").setup()
+  end,
 }
